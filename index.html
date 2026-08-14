@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPICES | Beste Gewürze EU-West</title>
+    <link rel="stylesheet" href="mobile.css" type="text/css" media="screen and (max-width: 750px)">
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen and (min-width: 751px)">
+    <link rel="icon" type="image/x-icon" href="img/icons8-chili-64.png">
+    <script src="index.js"></script>
+    <script src="login.js" ></script>
+    <script src="popup.js"></script>
+</head>
+<body>
+    
+    
+    <div id="overlay" class="overlay"></div>
+    <header>
+        <img class="header_img" src="img/header_img.jpg" alt="Bild eines Marktstands">
+        <div class="header_h">
+            <div class="header_text">
+                <h1>SPICES</h1>
+                <h3>Hebe deine Gewürzschublade <br> auf das nächste Level</h3>
+            </div>
+            <div>
+                <button class="header_button"  onclick="window.location.href='store.html'" >Shop online</button>
+            </div>
+        </div>    
+    </header>
+    <nav> 
+        <div><button id="login_Button" onclick="openLogPopup()">Login</button></div>
+        <div><button id="reg_Button" onclick="openRegPopup()">Registrieren</button></div>
+    </nav>
+    <main >
+        <div class="shadow"></div>
+
+        <!-- Login and reg. Popup menue with the forms !DOM not like this! -->
+        <div id="loginPopup" class="popup"></div>
+        <div id="regPopup" class="popup"> </div>
+        <div id="hostPopup" class="popup"></div>
+       
+        <div class="main_infobox2"> 
+            <div id="main_text_box2">
+                <h1>Viele verschiedene Gewürze</h1>
+                <p>SPICES, wo Qualität und Auswahl Hand in Hand gehen. Unsere sorgfältig ausgewählten Gewürze werden schonend verarbeitet, um ihr volles Aroma zu bewahren. Frei von künstlichen Zusatzstoffen bieten sie echten Geschmack und Zufriedenheit. Entdecken Sie die gute Qualität unserer Gewürze. SPICES für Genießer, die Qualität schätzen.</p>  
+            </div>
+            <div class="main_img_box2">
+                <img src="img/assortment-1868297_1280.jpg" alt="Auswahl vieler Gewürze">
+            </div> 
+        </div>
+        <div class="main_infobox1"> 
+            <div id="main_text_box">
+                <h1>Import aus der ganzen Welt</h1>
+                <p>Tauchen Sie ein in eine Welt voller Aromen mit den importierten Gewürzen von SPICES. Wir bieten eine Vielfalt aus verschiedenen Ländern wie Indien, Marokko und Mexiko. Jedes Land bringt seine eigenen einzigartigen Gewürzmischungen und Traditionen mit sich. Entdecken Sie authentische Aromen und Düfte ferner Länder. Bringen Sie Ihre Gerichte auf ein neues Level mit SPICES.</p>  
+            </div>
+            <div class="main_video_box">
+                <video autoplay loop muted ><source src="img/Laender_video.mov"></video>
+            </div> 
+        </div>
+        <div class="main_infobox3">
+            <div class="showroom">
+                <div class="showroom_box"><h2>Pfeffer</h2><img src="img/Produktfotos/Pfeffer.png" alt="Gewürz"></div>
+                <div class="showroom_box"><h2>Zimt</h2><img src="img/Produktfotos/Zimt.png" alt="Gewürz"></div>
+                <div class="showroom_box"><h2>Salz</h2><img src="img/Produktfotos/Salz.png" alt="Gewürz"></div>
+                <div class="showroom_box"><h2>Dill</h2><img src="img/Produktfotos/Dill.png" alt="Gewürz"></div> 
+                <div class="showroom_box"><button onclick="window.location.href='store.html'">Shop online</button></div> 
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer_box">
+            <a href="https://github.com/LukasRandecker" target="_blank" ><img src="img/GitHub_cat.png" alt="GitHub_cat"></a> 
+            <p>!!!! Es handelt sich hierbei nur um ein Projekt für meine Hochschule !!!!</p>
+            <a href="https://github.com/LukasRandecker" target="_blank" ><img src="img/GitHub_cat.png" alt="GitHub_cat"></a> 
+        </div>
+    </footer>
+</body>
+</html>

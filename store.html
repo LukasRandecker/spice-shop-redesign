@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPICES | Beste Gewürze EU-West</title>
+  
+    <link rel="stylesheet" href="mobile.css" type="text/css" media="screen and (max-width: 750px)">
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen and (min-width: 751px)">
+    <link rel="icon" type="image/x-icon" href="img/icons8-chili-64.png">
+ 
+    <script src="store.js"></script>    
+    <script src="login.js" ></script>
+    <script src="popup.js"></script>
+</head>
+<body> 
+
+    
+    <div id="overlay" class="overlay"></div>
+    <header>
+        <img class="header_img" src="img/header_img.jpg" alt="Bild eines Marktstands">
+        <div class="header_h">
+            <div class="header_text">
+                <h1>SPICES</h1>
+                <h3>Hebe deine Gewürzschublade <br> auf das nächste Level</h3>
+            </div>
+            <button class="header_button" id="first_button" onclick="window.location.href='index.html'" >Startseite</button>
+        </div>    
+    </header>
+    <nav>
+        <div><button id="login_Button" onclick="openLogPopup()">Login</button></div>
+        <div><button id="reg_Button" onclick="openRegPopup()">Registrieren</button></div>
+        <div><button onclick="window.location.href='shoppingcart.html'"><img class="shoppingcar"src="img/shopping-cart-svgrepo-com.svg" alt="Einkaufswagen_logo" ></button></div>
+    </nav>
+    <main>
+        <div class="shadow"></div>
+        
+        <div id="loginPopup" class="popup"></div>
+        <div id="regPopup" class="popup"> </div>
+        <div id="shop"></div>
+        <div id="hostPopup" class="popup"></div>  
+    </main>
+    <footer>
+        <div class="footer_box">
+            <a href="https://github.com/LukasRandecker" target="_blank" ><img src="img/GitHub_cat.png" alt="GitHub_cat"></a> 
+            <p>!!!! Es handelt sich hierbei nur um ein Projekt für meine Hochschule !!!!</p>
+            <a href="https://github.com/LukasRandecker" target="_blank" ><img src="img/GitHub_cat.png" alt="GitHub_cat"></a> 
+        </div>
+    </footer>
+</body>
+</html>
