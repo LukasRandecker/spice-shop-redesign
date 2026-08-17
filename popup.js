@@ -1,234 +1,181 @@
+/* popup.js — Inhalte aller Modals.
+   Login und Registrierung werden einmal beim Start erzeugt, das Admin-Modal
+   auf Zuruf mit Produktkontext. Formulare posten weiterhin auf die aktuelle
+   Seite mit verstecktem formType — der Server unterscheidet daran. */
 
-//Popup management
-document.addEventListener("DOMContentLoaded", function() {
-
-  document.getElementById("reg_Button").onclick =function(){
-    openRegPopup(); 
-  };
-
-  document.getElementById("login_Button").onclick =function(){
-    if(document.getElementById("login_Button").innerText=="Login"){
-      openLogPopup(); 
-    }
-    else 
-      deleteCookie();
-  }; 
-});  
-
-//DOM 
-function buildRegPopup(){
-  let mainContainer=document.getElementById("regPopup"); 
-  mainContainer.innerText=""; 
-  let newContent=document.createElement("div");
-  newContent.innerHTML = `<span class="close" onclick="closePopup()">&times;</span>
-  <div class="formHeader">
-      <h1>Registration</h1>
-      <button  onclick="openLogPopup()" class="popupButton"><h2> zum Login</h2></button>
-  </div> 
-  <form action="index.html" method="post">
-      <input type="hidden" name="formType" value="formReg">
-      <select name="anrede" required>
-          <option value="Herr">Herr</option>
-          <option value="Frau">Frau</option>
-          <option value="Divers">Divers</option>
-      </select>
-      <input type="text" name="first_name" placeholder="Vorname" required>
-      <input type="text" name="last_name" placeholder="Nachname" required>
-      <input type="text" name="street" placeholder="Straße" required>
-      <input type="number" name="house_number" placeholder="Hausnummer" required>
-      <input type="text" name="plz" placeholder="PLZ" required>
-      <input type="text" name="city" placeholder="Stadt" required>
-      <input type="email" name="email" placeholder="E-Mail" required>
-      <input type="password" name="password" placeholder="Passwort" required>
-      <input type="submit" value="Registrieren">
-  </form>`
-  mainContainer.appendChild(newContent); 
+function modalShell(id, title, body, switcher = '') {
+  return `
+  <div class="modal" id="${id}" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="${id}-title">
+    <div class="modal__panel" tabindex="-1">
+      <button class="modal__close" type="button" data-modal-close aria-label="Schließen">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.4"/>
+        </svg>
+      </button>
+      <div class="modal__head">
+        <h2 class="modal__title" id="${id}-title">${title}</h2>
+        ${switcher}
+      </div>
+      ${body}
+    </div>
+  </div>`;
 }
 
-function buildLoginPopup(){
-  let mainContainer=document.getElementById("loginPopup"); 
-  mainContainer.innerText=""; 
-  let newContent=document.createElement("div");
-  newContent.innerHTML = `
-  <span class="close" onclick="closePopup()">&times;</span>
-  <div class="formHeader">
-      <h1>Login</h1>
-      <button onclick="openRegPopup()" class="popupButton"><h2> zum Registrieren</h2></button>
-  </div> 
-  <form action="index.html" method="post">
-      <input type="hidden" name="formType" value="formLogin">
-      <input type="email" name="mail" placeholder="E-Mail" required>
-      <input type="password" name="password" placeholder="Passwort" required>
-      <input type="submit" value="Login" >
-  </form>`
-  mainContainer.appendChild(newContent); 
+function buildAuthModals() {
+  const host = document.getElementById('modals');
+  if (!host) return;
+
+  const login = modalShell(
+    'modal-login',
+    'Anmelden',
+    `<form class="form" method="post" action="">
+       <input type="hidden" name="formType" value="formLogin">
+       <div class="field">
+         <label for="login-mail">E-Mail</label>
+         <input id="login-mail" type="email" name="mail" autocomplete="email" required>
+       </div>
+       <div class="field">
+         <label for="login-pw">Passwort</label>
+         <input id="login-pw" type="password" name="password" autocomplete="current-password" required>
+       </div>
+       <button class="btn btn--primary btn--block" type="submit">Anmelden</button>
+       <p class="form__note">Demo-Stand. Bitte keine echten Zugangsdaten verwenden.</p>
+     </form>`,
+    `<p class="modal__switch">Noch kein Konto?
+       <button type="button" data-modal-open="modal-register">Registrieren</button></p>`
+  );
+
+  const register = modalShell(
+    'modal-register',
+    'Konto anlegen',
+    `<form class="form" method="post" action="">
+       <input type="hidden" name="formType" value="formReg">
+       <div class="field">
+         <label for="reg-anrede">Anrede</label>
+         <select id="reg-anrede" name="anrede" required>
+           <option value="Herr">Herr</option>
+           <option value="Frau">Frau</option>
+           <option value="Divers">Divers</option>
+         </select>
+       </div>
+       <div class="form__row">
+         <div class="field">
+           <label for="reg-first">Vorname</label>
+           <input id="reg-first" type="text" name="first_name" autocomplete="given-name" required>
+         </div>
+         <div class="field">
+           <label for="reg-last">Nachname</label>
+           <input id="reg-last" type="text" name="last_name" autocomplete="family-name" required>
+         </div>
+       </div>
+       <div class="form__row">
+         <div class="field">
+           <label for="reg-street">Straße</label>
+           <input id="reg-street" type="text" name="street" autocomplete="address-line1" required>
+         </div>
+         <div class="field">
+           <label for="reg-nr">Hausnummer</label>
+           <input id="reg-nr" type="text" name="house_number" autocomplete="address-line2" required>
+         </div>
+       </div>
+       <div class="form__row">
+         <div class="field">
+           <label for="reg-plz">PLZ</label>
+           <input id="reg-plz" type="text" name="plz" inputmode="numeric" autocomplete="postal-code" required>
+         </div>
+         <div class="field">
+           <label for="reg-city">Stadt</label>
+           <input id="reg-city" type="text" name="city" autocomplete="address-level2" required>
+         </div>
+       </div>
+       <div class="field">
+         <label for="reg-mail">E-Mail</label>
+         <input id="reg-mail" type="email" name="email" autocomplete="email" required>
+       </div>
+       <div class="field">
+         <label for="reg-pw">Passwort</label>
+         <input id="reg-pw" type="password" name="password" autocomplete="new-password" required>
+       </div>
+       <button class="btn btn--primary btn--block" type="submit">Konto anlegen</button>
+       <p class="form__note">Demo-Stand. Bitte keine echten Daten verwenden.</p>
+     </form>`,
+    `<p class="modal__switch">Schon registriert?
+       <button type="button" data-modal-open="modal-login">Anmelden</button></p>`
+  );
+
+  host.insertAdjacentHTML('beforeend', login + register);
 }
 
-function openRegPopup(){
-  buildRegPopup(); 
-  closePopup(); 
-  addfilter(); 
-  document.getElementById("regPopup").style.visibility= "visible";
+/* -------------------------------------------------- Admin */
+
+function adminHost() {
+  let el = document.getElementById('modal-admin');
+  if (el) el.remove();
+  document.getElementById('modals').insertAdjacentHTML('beforeend',
+    modalShell('modal-admin', 'Verwalten', '<div class="modal__tabs" id="admin-body"></div>'));
+  return document.getElementById('admin-body');
 }
 
-function openLogPopup(){
-  buildLoginPopup(); 
-  closePopup(); 
-  addfilter(); 
-  document.getElementById("loginPopup").style.visibility ="visible" ; 
+function openAdmin(index) {
+  const body = adminHost();
+  body.innerHTML = `
+    <button class="btn btn--ghost btn--block" type="button" onclick="adminAdd()">Neues Gewürz</button>
+    <button class="btn btn--ghost btn--block" type="button" onclick="adminEdit(${index})">Bearbeiten</button>
+    <button class="btn btn--ghost btn--danger btn--block" type="button" onclick="adminDelete(${index})">Löschen</button>`;
+  Modal.open('modal-admin');
 }
 
-function closePopup(){
-  removefilter(); 
-  document.getElementById("regPopup").style.visibility ="hidden" ; 
-  document.getElementById("loginPopup").style.visibility ="hidden" ;
-  if(document.getElementById("orderPopup"))
-    document.getElementById("orderPopup").style.visibility ="hidden" ;
-  document.getElementById("hostPopup").style.visibility ="hidden" ;
-  document.getElementById("hostPopup").innerHTML=""; 
-}
-
-
-//some Parts of the function addfilter and removefilter are Ai generated
-function addfilter(){
-  const overlay = document.getElementById('overlay');
-  const body = document.querySelector('body');
-  overlay.style.display = 'block';
-  body.classList.add('overlayed'); 
-}
-
-function removefilter(){
-  const overlay = document.getElementById('overlay');
-  const body = document.querySelector('body'); 
-  overlay.style.display = 'none';
-  body.classList.remove('overlayed'); 
-}
-
-function deleteCookie(){
-  //set cookie in the past to delete it
-  document.cookie = "user" + '=; expires=Thu, 01 Jan 1969 00:00:01 GMT;';
-  //change the style and value back to normal
-  document.getElementById("reg_Button").style.visibility ="visible" ; 
-  document.getElementById("login_Button").innerText ="Login"
-  if(document.getElementsByClassName("hostLoginButton")){
-    elements=document.getElementsByClassName("hostLoginButton"); 
-    for( let i of elements){
-      i.style.visibility ="hidden" ; 
-    }
-  }
-}
-
-
-//DOM manipulation for host popup
-function setInnerHTMLEdit(i){
-
-  document.getElementById("hostPopup").innerHTML=""; 
-
-  fetch("spices.json")
-      .then(response => response.json())
-      .then(jsonData => {
-  let mainContainer=document.getElementById("hostPopup"); 
-  let newContent=document.createElement("div"); 
-  newContent.innerHTML=`
-  <span class='close' onclick='closePopup()'>&times;</span>
-  <div class='formHeader'>
-      <h1>Bearbeiten</h1></br>
-  </div> 
-  <form  action="store.html" method="post">
+async function adminEdit(index) {
+  const spice = (await loadSpices())[index];
+  const body = document.getElementById('admin-body') || adminHost();
+  body.innerHTML = `
+    <form class="form" method="post" action="">
       <input type="hidden" name="formType" value="hostedit">
-      <input type="hidden" name="oldname" value="`+jsonData.arraySpices[i].name+`">
-      <input type="text" name="name" placeholder="`+jsonData.arraySpices[i].name+`">
-      <input type="text" name="origin" placeholder="`+jsonData.arraySpices[i].origin+`">
-      <input type="number" step="0.10" name="price_per_100g" placeholder="`+jsonData.arraySpices[i].price_per_100g+`">
-      <input type="number" min="0" max="5" step="0.5" name="rating" placeholder="`+jsonData.arraySpices[i].rating+`">
-      <input type="number" name="num_ratings" placeholder="`+jsonData.arraySpices[i].num_ratings+`">
-      <select name="available">
+      <input type="hidden" name="oldname" value="${esc(spice.name)}">
+      <p class="form__note">Leere Felder bleiben unverändert.</p>
+      <div class="field"><label>Name</label><input type="text" name="name" placeholder="${esc(spice.name)}"></div>
+      <div class="field"><label>Herkunft</label><input type="text" name="origin" placeholder="${esc(spice.origin)}"></div>
+      <div class="field"><label>Preis / 100 g</label><input type="number" step="0.10" name="price_per_100g" placeholder="${esc(spice.price_per_100g)}"></div>
+      <div class="field"><label>Verfügbarkeit</label>
+        <select name="available">
           <option value="1">Verfügbar</option>
-          <option value="0">Nicht Verfügbar</option>
-      </select>
-      <input type="submit" value="Bearbeiten">
-  </form>`; 
-  mainContainer.appendChild(newContent); 
-  }); 
+          <option value="0">Nicht verfügbar</option>
+        </select>
+      </div>
+      <button class="btn btn--primary btn--block" type="submit">Speichern</button>
+    </form>`;
 }
-function setInnerHTMLDel(i){
 
-  document.getElementById("hostPopup").innerHTML="";
-
-  fetch("spices.json")
-      .then(response => response.json())
-      .then(jsonData => {
-  let mainContainer=document.getElementById("hostPopup"); 
-  let newContent=document.createElement("div"); 
-  newContent.innerHTML=`
-  <span class='close' onclick='closePopup()'>&times;</span>
-  <div class='formHeader'>
-      <h1 style='color: red;'>Löschen</h1></br>
-  </div> 
-  <form  action="store.html" method="post">
+async function adminDelete(index) {
+  const spice = (await loadSpices())[index];
+  const body = document.getElementById('admin-body') || adminHost();
+  body.innerHTML = `
+    <form class="form" method="post" action="">
       <input type="hidden" name="formType" value="hostdel">
-      <input type="hidden" name="name" value="`+jsonData.arraySpices[i].name+`">
-      <h3>`+jsonData.arraySpices[i].name+`</h3>
-      <input type="submit" value="Löschen">
-  </form>`; 
-  mainContainer.appendChild(newContent); 
-  }); 
+      <input type="hidden" name="name" value="${esc(spice.name)}">
+      <p class="t-body">„${esc(spice.name)}" wird dauerhaft aus dem Katalog entfernt.</p>
+      <button class="btn btn--ghost btn--danger btn--block" type="submit">Endgültig löschen</button>
+    </form>`;
 }
-function setInnerHTMLAdd(){
 
-  document.getElementById("hostPopup").innerHTML=""; 
-
-  let mainContainer=document.getElementById("hostPopup"); 
-  let newContent=document.createElement("div"); 
-  newContent.innerHTML=`
-  <span class='close' onclick='closePopup()'>&times;</span>
-  <div class='formHeader'>
-      <h1 style='color: green;'>Neues Gewürz</h1></br>
-  </div> 
-  <form  action="store.html" method="post" enctype="multipart/form-data">
+function adminAdd() {
+  const body = document.getElementById('admin-body') || adminHost();
+  body.innerHTML = `
+    <form class="form" method="post" action="" enctype="multipart/form-data">
       <input type="hidden" name="formType" value="hostadd">
-      <label for="picture" >Bild auswählen:
-          <br><input type="file" name="picture" accept="image/*" required>
-      </label>
-      <input type="text" name="name" placeholder="Name" required>
-      <input type="text" name="origin" placeholder="Herkunftsland" required>
-      <input type="number" step="0.10" name="price_per_100g" placeholder="Preis pro 100g" required>
-      <input type="number" min="0" max="5" step="0.5" name="rating" placeholder="Bewertung" required>
-      <input type="number" name="num_ratings" placeholder="Anzahl der Bewertungen" required>
-      <select name="available" required>
+      <div class="field"><label for="add-pic">Produktfoto</label><input id="add-pic" type="file" name="picture" accept="image/*" required></div>
+      <div class="field"><label for="add-name">Name</label><input id="add-name" type="text" name="name" required></div>
+      <div class="field"><label for="add-origin">Herkunft</label><input id="add-origin" type="text" name="origin" required></div>
+      <div class="field"><label for="add-price">Preis / 100 g</label><input id="add-price" type="number" step="0.10" name="price_per_100g" required></div>
+      <div class="field"><label for="add-avail">Verfügbarkeit</label>
+        <select id="add-avail" name="available" required>
           <option value="1">Verfügbar</option>
-          <option value="0">Nicht Verfügbar</option>
-      </select>
-      <input type="submit" value="Hinzufügen">
-  </form>`; 
-  mainContainer.appendChild(newContent);  
+          <option value="0">Nicht verfügbar</option>
+        </select>
+      </div>
+      <p class="form__note">Der Dateiname muss dem Produktnamen entsprechen.</p>
+      <button class="btn btn--primary btn--block" type="submit">Anlegen</button>
+    </form>`;
 }
 
-function hostPopup(i){
-  let mainContainer=document.getElementById("hostPopup"); 
-  let newContent=document.createElement("div"); 
-  newContent.innerHTML=`
-  <span class='close' onclick='closePopup()'>&times;</span>
-  <div class='formHeader' style='flex-direction: column;'">
-      <button onclick="setInnerHTMLAdd()"><h1>Neu Hinzufügen</h1></button>
-      <button onclick="setInnerHTMLEdit(`+i+`)"><h1>Bearbeiten</h1></button>
-      <button onclick="setInnerHTMLDel(`+i+`)"><h1>Löschen</h1></button>
-  </div>`; 
-  mainContainer.appendChild(newContent); 
-  addfilter(); 
-  document.getElementById("hostPopup").style.visibility ="visible" ;
-}; 
-
-function checkHostLogin(i){
-  if(document.cookie!=""){
-      let cookie = decodeCookie()
-      if(cookie.first_name=="root"&&cookie.last_name=="host"){
-          var mainContainer = document.getElementById("shopBoxLastLine"+i); 
-          let newContent = document.createElement("button");
-          newContent.onclick= function() {hostPopup(i); };
-          newContent.className="hostLoginButton";
-          newContent.innerHTML = "<img src='img/icons8-einstellungen-50.png' alt='Host-Icon'>";
-          mainContainer.appendChild(newContent);  
-      }
-  }
-}
+document.addEventListener('DOMContentLoaded', buildAuthModals);

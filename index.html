@@ -1,78 +1,199 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPICES | Beste Gewürze EU-West</title>
-    <link rel="stylesheet" href="mobile.css" type="text/css" media="screen and (max-width: 750px)">
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen and (min-width: 751px)">
-    <link rel="icon" type="image/x-icon" href="img/icons8-chili-64.png">
-    <script src="index.js"></script>
-    <script src="login.js" ></script>
-    <script src="popup.js"></script>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SPICES — ganze Gewürze, direkt vom Ursprung. Frisch vermahlen, in kleinen Chargen, ohne Zusätze.">
+<meta name="color-scheme" content="dark">
+<title>SPICES — Gewürze in ihrer besten Form</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="img/icons8-chili-64.png">
+
+<script src="app.js" defer></script>
+<script src="motion.js" defer></script>
+<script src="popup.js" defer></script>
+<script src="login.js" defer></script>
+<script src="index.js" defer></script>
 </head>
 <body>
-    
-    
-    <div id="overlay" class="overlay"></div>
-    <header>
-        <img class="header_img" src="img/header_img.jpg" alt="Bild eines Marktstands">
-        <div class="header_h">
-            <div class="header_text">
-                <h1>SPICES</h1>
-                <h3>Hebe deine Gewürzschublade <br> auf das nächste Level</h3>
-            </div>
-            <div>
-                <button class="header_button"  onclick="window.location.href='store.html'" >Shop online</button>
-            </div>
-        </div>    
-    </header>
-    <nav> 
-        <div><button id="login_Button" onclick="openLogPopup()">Login</button></div>
-        <div><button id="reg_Button" onclick="openRegPopup()">Registrieren</button></div>
-    </nav>
-    <main >
-        <div class="shadow"></div>
 
-        <!-- Login and reg. Popup menue with the forms !DOM not like this! -->
-        <div id="loginPopup" class="popup"></div>
-        <div id="regPopup" class="popup"> </div>
-        <div id="hostPopup" class="popup"></div>
-       
-        <div class="main_infobox2"> 
-            <div id="main_text_box2">
-                <h1>Viele verschiedene Gewürze</h1>
-                <p>SPICES, wo Qualität und Auswahl Hand in Hand gehen. Unsere sorgfältig ausgewählten Gewürze werden schonend verarbeitet, um ihr volles Aroma zu bewahren. Frei von künstlichen Zusatzstoffen bieten sie echten Geschmack und Zufriedenheit. Entdecken Sie die gute Qualität unserer Gewürze. SPICES für Genießer, die Qualität schätzen.</p>  
-            </div>
-            <div class="main_img_box2">
-                <img src="img/assortment-1868297_1280.jpg" alt="Auswahl vieler Gewürze">
-            </div> 
+<a class="sr-only" href="#main">Zum Inhalt springen</a>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="wordmark" href="index.html">Spices</a>
+    <nav class="nav__links" aria-label="Hauptnavigation">
+      <a class="nav__link" href="index.html" aria-current="page">Start</a>
+      <a class="nav__link" href="store.html">Katalog</a>
+      <a class="nav__link nav__cart" href="shoppingcart.html">Warenkorb <span class="cart-count" data-cart-count hidden>0</span></a>
+      <button class="nav__link" type="button" data-modal-open="modal-login" data-auth="in">Anmelden</button>
+      <button class="nav__link" type="button" data-logout data-auth="out" hidden>Abmelden</button>
+    </nav>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu"><span>Menü</span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="index.html">Start</a>
+  <a href="store.html">Katalog</a>
+  <a href="shoppingcart.html">Warenkorb</a>
+</div>
+
+<main id="main">
+
+  <!-- 01 · Hero -->
+  <section class="hero">
+    <div class="hero__media" data-parallax="0.14">
+      <img src="img/header_img.jpg" alt="" width="1920" height="1275">
+    </div>
+    <div class="shell hero__inner">
+      <p class="t-label t-label--saffron">01 — Gewürze in ihrer besten Form</p>
+      <h1 class="t-mega" data-split>Mehr<br>Geschmack</h1>
+      <div class="hero__foot">
+        <div class="stack">
+          <p class="t-lead">Ganze Gewürze, direkt vom Ursprung. In kleinen Chargen verarbeitet,
+            frisch vermahlen, ohne Zusätze. Für alle, die den Unterschied schmecken.</p>
+          <div><a class="btn btn--primary" href="store.html">Zum Katalog</a></div>
         </div>
-        <div class="main_infobox1"> 
-            <div id="main_text_box">
-                <h1>Import aus der ganzen Welt</h1>
-                <p>Tauchen Sie ein in eine Welt voller Aromen mit den importierten Gewürzen von SPICES. Wir bieten eine Vielfalt aus verschiedenen Ländern wie Indien, Marokko und Mexiko. Jedes Land bringt seine eigenen einzigartigen Gewürzmischungen und Traditionen mit sich. Entdecken Sie authentische Aromen und Düfte ferner Länder. Bringen Sie Ihre Gerichte auf ein neues Level mit SPICES.</p>  
-            </div>
-            <div class="main_video_box">
-                <video autoplay loop muted ><source src="img/Laender_video.mov"></video>
-            </div> 
+        <div class="hero__cue">
+          <span class="t-label">Scrollen</span>
+          <span aria-hidden="true">↓</span>
         </div>
-        <div class="main_infobox3">
-            <div class="showroom">
-                <div class="showroom_box"><h2>Pfeffer</h2><img src="img/Produktfotos/Pfeffer.png" alt="Gewürz"></div>
-                <div class="showroom_box"><h2>Zimt</h2><img src="img/Produktfotos/Zimt.png" alt="Gewürz"></div>
-                <div class="showroom_box"><h2>Salz</h2><img src="img/Produktfotos/Salz.png" alt="Gewürz"></div>
-                <div class="showroom_box"><h2>Dill</h2><img src="img/Produktfotos/Dill.png" alt="Gewürz"></div> 
-                <div class="showroom_box"><button onclick="window.location.href='store.html'">Shop online</button></div> 
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · Laufband -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track" id="ticker"></div>
+  </div>
+
+  <!-- 03 · Manifest -->
+  <section class="section shell glow">
+    <p class="t-label t-label--saffron rise">02 — Anspruch</p>
+    <h2 class="t-headline manifest__text" data-split>
+      Wir kaufen dort ein, wo das Gewürz herkommt, und verarbeiten so wenig wie möglich —
+      damit im Glas steht, was <em>tatsächlich</em> darin sein sollte
+    </h2>
+    <div class="manifest__meta" data-stagger>
+      <p class="t-body">Kein Zwischenhandel, der Chargen mischt. Kein Streckmittel, kein Rieselhilfsstoff,
+        kein Aroma aus dem Labor. Wir kaufen ganze Ware, mahlen in kleinen Mengen und schreiben auf
+        jedes Etikett, aus welchem Land und aus welcher Ernte sie stammt.</p>
+      <p><a class="link" href="store.html">Katalog ansehen</a></p>
+    </div>
+  </section>
+
+  <!-- 04 · Länder -->
+  <section class="reel">
+    <div class="reel__media" data-parallax="0.08">
+      <video src="img/Laender_video.mov" poster="img/assortment-1868297_1280.jpg" autoplay loop muted playsinline></video>
+    </div>
+    <div class="shell reel__inner">
+      <p class="t-label t-label--saffron rise">03 — Herkunft</p>
+      <h2 class="t-display" data-split>Aus aller Welt</h2>
+      <p class="t-lead rise">Indien, Marokko, Mexiko, Sri Lanka, Vietnam. Wir gehen dorthin, wo eine
+        Sorte am besten wächst — und nicht dorthin, wo sie am günstigsten zu haben ist.</p>
+    </div>
+  </section>
+
+  <!-- 05 · Zahlen -->
+  <section class="section">
+    <div class="shell">
+      <p class="t-label t-label--saffron rise">04 — In Zahlen</p>
+      <div class="stats stats--3" id="stats">
+        <div class="stat rise">
+          <div class="stat__value"><span data-count="17">17</span></div>
+          <p class="t-label stat__label">Sorten im Katalog</p>
         </div>
-    </main>
-    <footer>
-        <div class="footer_box">
-            <a href="https://github.com/LukasRandecker" target="_blank" ><img src="img/GitHub_cat.png" alt="GitHub_cat"></a> 
-            <p>!!!! Es handelt sich hierbei nur um ein Projekt für meine Hochschule !!!!</p>
-            <a href="https://github.com/LukasRandecker" target="_blank" ><img src="img/GitHub_cat.png" alt="GitHub_cat"></a> 
+        <div class="stat rise">
+          <div class="stat__value"><span data-count="11">11</span></div>
+          <p class="t-label stat__label">Herkunftsländer</p>
         </div>
-    </footer>
+        <div class="stat rise">
+          <div class="stat__value"><span data-count="100">100</span><sup>%</sup></div>
+          <p class="t-label stat__label">Ohne Zusatzstoffe</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · Auswahl -->
+  <section class="section shell glow glow--right">
+    <div class="section-head">
+      <p class="t-label t-label--saffron">05 — Auswahl</p>
+      <h2 class="t-headline" data-split>Vier zum Anfangen</h2>
+    </div>
+    <div class="grid-products grid-products--four" id="featured"></div>
+    <p style="margin-top: var(--s-8)"><a class="link" href="store.html">Alle Gewürze ansehen</a></p>
+  </section>
+
+  <!-- 07 · Prinzipien -->
+  <section class="section shell">
+    <p class="t-label t-label--saffron rise">06 — Prinzipien</p>
+    <div class="pillars" style="margin-top: var(--s-8)" data-stagger>
+      <div class="pillar">
+        <p class="pillar__no">01</p>
+        <h3 class="t-title">Sortenrein</h3>
+        <p class="t-body">Eine Herkunft, eine Ernte, ein Glas. Keine Mischung aus drei Kontinenten,
+          die nach nichts Bestimmtem schmeckt.</p>
+      </div>
+      <div class="pillar">
+        <p class="pillar__no">02</p>
+        <h3 class="t-title">Kleine Chargen</h3>
+        <p class="t-body">Wir mahlen wöchentlich und nur so viel, wie verkauft wird. Ätherische Öle
+          verfliegen — dagegen hilft kein Verpackungsmaterial, nur Frische.</p>
+      </div>
+      <div class="pillar">
+        <p class="pillar__no">03</p>
+        <h3 class="t-title">Ohne Zusätze</h3>
+        <p class="t-body">Kein Trennmittel, kein Farbstoff, kein Aroma. Die Zutatenliste hat genau
+          einen Eintrag.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · Abschluss -->
+  <section class="closer">
+    <div class="shell closer__inner">
+      <h2 class="t-display" data-split>Jetzt schmecken</h2>
+      <p class="t-lead">Der ganze Katalog, versandfertig innerhalb eines Werktags.</p>
+      <div class="rise"><a class="btn btn--primary" href="store.html">Zum Katalog</a></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <p class="wordmark">Spices</p>
+        <p class="t-body">Ganze Gewürze, direkt vom Ursprung.</p>
+      </div>
+      <div class="footer__col">
+        <p class="t-label">Shop</p>
+        <a href="store.html">Katalog</a>
+        <a href="shoppingcart.html">Warenkorb</a>
+      </div>
+      <div class="footer__col">
+        <p class="t-label">Projekt</p>
+        <a href="https://github.com/LukasRandecker/spice-shop-redesign" target="_blank" rel="noopener">Quellcode auf GitHub</a>
+        <a href="https://github.com/LukasRandecker" target="_blank" rel="noopener">Lukas Randecker</a>
+      </div>
+    </div>
+    <div class="footer__note">
+      <p class="t-label footer__disclaimer">Demo-Projekt · Kein echter Shop · Keine echten Kundendaten · Nicht produktionsreif</p>
+      <p class="t-label">© <span data-year>2026</span> SPICES</p>
+    </div>
+  </div>
+</footer>
+
+<div id="modals"></div>
+
 </body>
 </html>

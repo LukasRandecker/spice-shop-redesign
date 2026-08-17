@@ -1,51 +1,92 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPICES | Beste Gewürze EU-West</title>
-  
-    <link rel="stylesheet" href="mobile.css" type="text/css" media="screen and (max-width: 750px)">
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen and (min-width: 751px)">
-    <link rel="icon" type="image/x-icon" href="img/icons8-chili-64.png">
- 
-    <script src="store.js"></script>    
-    <script src="login.js" ></script>
-    <script src="popup.js"></script>
-</head>
-<body> 
+<script>document.documentElement.className += ' js';</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Der vollständige Katalog von SPICES — sortenreine Gewürze mit Herkunft, frei wählbarer Menge und Preis pro 100 g.">
+<meta name="color-scheme" content="dark">
+<title>Katalog — SPICES</title>
 
-    
-    <div id="overlay" class="overlay"></div>
-    <header>
-        <img class="header_img" src="img/header_img.jpg" alt="Bild eines Marktstands">
-        <div class="header_h">
-            <div class="header_text">
-                <h1>SPICES</h1>
-                <h3>Hebe deine Gewürzschublade <br> auf das nächste Level</h3>
-            </div>
-            <button class="header_button" id="first_button" onclick="window.location.href='index.html'" >Startseite</button>
-        </div>    
-    </header>
-    <nav>
-        <div><button id="login_Button" onclick="openLogPopup()">Login</button></div>
-        <div><button id="reg_Button" onclick="openRegPopup()">Registrieren</button></div>
-        <div><button onclick="window.location.href='shoppingcart.html'"><img class="shoppingcar"src="img/shopping-cart-svgrepo-com.svg" alt="Einkaufswagen_logo" ></button></div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="img/icons8-chili-64.png">
+
+<script src="app.js" defer></script>
+<script src="motion.js" defer></script>
+<script src="popup.js" defer></script>
+<script src="login.js" defer></script>
+<script src="store.js" defer></script>
+</head>
+<body>
+
+<a class="sr-only" href="#main">Zum Inhalt springen</a>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="wordmark" href="index.html">Spices</a>
+    <nav class="nav__links" aria-label="Hauptnavigation">
+      <a class="nav__link" href="index.html">Start</a>
+      <a class="nav__link" href="store.html" aria-current="page">Katalog</a>
+      <a class="nav__link nav__cart" href="shoppingcart.html">Warenkorb <span class="cart-count" data-cart-count hidden>0</span></a>
+      <button class="nav__link" type="button" data-modal-open="modal-login" data-auth="in">Anmelden</button>
+      <button class="nav__link" type="button" data-logout data-auth="out" hidden>Abmelden</button>
     </nav>
-    <main>
-        <div class="shadow"></div>
-        
-        <div id="loginPopup" class="popup"></div>
-        <div id="regPopup" class="popup"> </div>
-        <div id="shop"></div>
-        <div id="hostPopup" class="popup"></div>  
-    </main>
-    <footer>
-        <div class="footer_box">
-            <a href="https://github.com/LukasRandecker" target="_blank" ><img src="img/GitHub_cat.png" alt="GitHub_cat"></a> 
-            <p>!!!! Es handelt sich hierbei nur um ein Projekt für meine Hochschule !!!!</p>
-            <a href="https://github.com/LukasRandecker" target="_blank" ><img src="img/GitHub_cat.png" alt="GitHub_cat"></a> 
-        </div>
-    </footer>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu"><span>Menü</span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="index.html">Start</a>
+  <a href="store.html">Katalog</a>
+  <a href="shoppingcart.html">Warenkorb</a>
+</div>
+
+<main id="main">
+
+  <div class="shell page-head">
+    <p class="t-label t-label--saffron rise">Katalog</p>
+    <h1 class="t-display" data-split>Der<br>Katalog</h1>
+    <div class="page-head__meta">
+      <p class="t-label"><span id="catalog-count">—</span> Sorten · Preise pro 100 g</p>
+      <p class="t-label">Versandfertig in 1 Werktag</p>
+    </div>
+  </div>
+
+  <div class="shell" style="padding-bottom: var(--section-y)">
+    <div class="grid-products" id="shop"></div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <p class="wordmark">Spices</p>
+        <p class="t-body">Ganze Gewürze, direkt vom Ursprung.</p>
+      </div>
+      <div class="footer__col">
+        <p class="t-label">Shop</p>
+        <a href="store.html">Katalog</a>
+        <a href="shoppingcart.html">Warenkorb</a>
+      </div>
+      <div class="footer__col">
+        <p class="t-label">Projekt</p>
+        <a href="https://github.com/LukasRandecker/spice-shop-redesign" target="_blank" rel="noopener">Quellcode auf GitHub</a>
+        <a href="https://github.com/LukasRandecker" target="_blank" rel="noopener">Lukas Randecker</a>
+      </div>
+    </div>
+    <div class="footer__note">
+      <p class="t-label footer__disclaimer">Demo-Projekt · Kein echter Shop · Keine echten Kundendaten · Nicht produktionsreif</p>
+      <p class="t-label">© <span data-year>2026</span> SPICES</p>
+    </div>
+  </div>
+</footer>
+
+<div id="modals"></div>
+
 </body>
 </html>

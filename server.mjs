@@ -83,13 +83,13 @@ app.post('*',upload.single('picture'), async (req, res) => {
             await newUser(rb.anrede, rb.first_name, rb.last_name, customerNumber, rb.street, rb.house_number, rb.plz, rb.city, rb.email, rb.password);
             break;
         case "hostedit":
-            await editSpice(rb.name,rb.origin,rb.price_per_100g,rb.rating,rb.num_ratings,rb.available,rb.oldname); 
+            await editSpice(rb.name,rb.origin,rb.price_per_100g,rb.available,rb.oldname);
             break;
         case "hostdel":
-            await deleteSpice(rb.name); 
+            await deleteSpice(rb.name);
             break;
-        case "hostadd":  
-            await addSpice(rb.name,rb.origin,rb.price_per_100g,rb.rating,rb.num_ratings,rb.available)
+        case "hostadd":
+            await addSpice(rb.name,rb.origin,rb.price_per_100g,rb.available)
             break;
     }
 
@@ -136,14 +136,14 @@ async function deleteSpice(name){
     await db.close();    
     await getDataSpices();
 }
-async function editSpice(name,origin,price100g,rating,num_ratings,availability,oldname){
+async function editSpice(name,origin,price100g,availability,oldname){
     const db = await open({
         filename: dbFilePath,
         driver: sqlite3.Database,
     });
 
-    let tabelName =["name","origin","price_per_100g","rating","num_ratings","available"]; 
-    let dataForm = [name,origin,price100g,rating,num_ratings,availability]; 
+    let tabelName =["name","origin","price_per_100g","available"];
+    let dataForm = [name,origin,price100g,availability];
  
     for(let i=0; i<(dataForm.length); i++){
         if(dataForm[i]!=null && dataForm[i]!=undefined && dataForm[i]!=""){
@@ -155,14 +155,14 @@ async function editSpice(name,origin,price100g,rating,num_ratings,availability,o
     getDataSpices();//update .json
 }
 
-async function addSpice(name,origin,price100g,rating,num_ratings,availability){
+async function addSpice(name,origin,price100g,availability){
     const db = await open({
         filename: dbFilePath,
         driver: sqlite3.Database,
     });
 
     //add spice in database
-    await db.all('INSERT INTO spices (name,origin,price_per_100g,rating,num_ratings,available) VALUES (?,?,?,?,?,?)',[name,origin,price100g,rating,num_ratings,availability]); 
+    await db.all('INSERT INTO spices (name,origin,price_per_100g,available) VALUES (?,?,?,?)',[name,origin,price100g,availability]);
     await db.close();    
     await getDataSpices(); //update .json
 }
