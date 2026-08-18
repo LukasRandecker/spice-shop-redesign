@@ -8,9 +8,8 @@ async function renderCatalog() {
 
   try {
     const spices = await loadSpices();
-    const admin = isHost();
 
-    host.innerHTML = spices.map((s) => cardHTML(s, { admin })).join('');
+    host.innerHTML = spices.map((s) => cardHTML(s)).join('');
     host.querySelectorAll('.card').forEach((card, i) => {
       card.style.setProperty('--d', `${(i % 4) * 80}ms`);
     });

@@ -110,19 +110,13 @@ document.addEventListener('change', (e) => {
 
 /* -------------------------------------------------- Bestellung */
 
-function orderModal(user, total) {
+function orderModal(total) {
   const host = document.getElementById('modals');
   document.getElementById('modal-order')?.remove();
 
   host.insertAdjacentHTML('beforeend', modalShell('modal-order', 'Danke', `
     <div class="stack">
-      <p class="t-body">${esc(user.first_name)}, die Bestellung über <span class="saffron">${money(total)}</span>
-        ist eingegangen. Lieferung an:</p>
-      <p class="t-body">
-        ${esc(user.first_name)} ${esc(user.last_name)}<br>
-        ${esc(user.street)} ${esc(user.house_number)}<br>
-        ${esc(user.postal_code)} ${esc(user.city)}
-      </p>
+      <p class="t-body">Die Bestellung über <span class="saffron">${money(total)}</span> ist eingegangen.</p>
       <button class="btn btn--ghost btn--block" type="button" data-modal-close>Schließen</button>
     </div>`));
 
@@ -138,15 +132,9 @@ document.addEventListener('click', (e) => {
   }
 
   if (e.target.closest('#checkout')) {
-    const user = readUser();
-    if (!user) {
-      toast('Zum Bestellen bitte anmelden', 'warn');
-      Modal.open('modal-login');
-      return;
-    }
     const subtotal = Cart.total();
     const total = subtotal >= FREE_FROM ? subtotal : subtotal + SHIPPING;
-    orderModal(user, total);
+    orderModal(total);
     Cart.clear();
   }
 });

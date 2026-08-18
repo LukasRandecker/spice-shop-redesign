@@ -273,7 +273,7 @@ lesbar.
 ### Navigation
 Fixed, Höhe 68px, transparent bis 40px Scroll, danach Blur + Hairline. Links das Wortzeichen
 `SPICES` (`--t-label`, Sperrung `.28em`), rechts Shop / Warenkorb (mit Safran-Zähler-Badge bei
-Inhalt) / Login. Unter 760px klappt rechts ein Vollbild-Overlay-Menü auf.
+Inhalt). Unter 760px klappt rechts ein Vollbild-Overlay-Menü auf.
 
 ### Button
 Nur zwei Varianten, beide Pill (`999px`), Höhe 52px, Padding `0 32px`, `--t-label`-Sperrung
@@ -352,11 +352,6 @@ Vollflächiger Backdrop `rgba(8,8,7,.8)` + `blur(8px)`. Panel: `--surface`, `1px
 Radius 0, max. 480px breit, fährt mit `translateY(24px) → 0` + Fade in `--dur` ein.
 Schließen per ✕ oben rechts, Klick auf Backdrop und `Esc`. Fokus wird beim Öffnen ins Panel
 gesetzt und beim Schließen zurückgegeben.
-
-### Formularfeld
-Kein Kasten. Nur eine untere Hairline, `padding: 14px 0`, Label darüber als Versal-Label in
-`--bone-faint`. Bei Fokus wird die Hairline Safran und wächst von links (`scaleX`).
-Platzhalter in `--bone-faint`. `autocomplete` ist gesetzt.
 
 ### Toast
 Ersetzt jedes `alert()`. Unten mittig, `--surface`, Hairline, Pill, fährt von unten ein,

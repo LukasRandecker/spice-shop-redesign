@@ -16,8 +16,6 @@
 
 <script src="app.js" defer></script>
 <script src="motion.js" defer></script>
-<script src="popup.js" defer></script>
-<script src="login.js" defer></script>
 <script src="index.js" defer></script>
 </head>
 <body>
@@ -31,8 +29,6 @@
       <a class="nav__link" href="index.html" aria-current="page">Start</a>
       <a class="nav__link" href="store.html">Katalog</a>
       <a class="nav__link nav__cart" href="shoppingcart.html">Warenkorb <span class="cart-count" data-cart-count hidden>0</span></a>
-      <button class="nav__link" type="button" data-modal-open="modal-login" data-auth="in">Anmelden</button>
-      <button class="nav__link" type="button" data-logout data-auth="out" hidden>Abmelden</button>
     </nav>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu"><span>Menü</span></button>
   </div>
@@ -91,7 +87,7 @@
   <!-- 04 · Länder -->
   <section class="reel">
     <div class="reel__media" data-parallax="0.08">
-      <video src="img/Laender_video.mov" poster="img/assortment-1868297_1280.jpg" autoplay loop muted playsinline></video>
+      <video src="img/Laender_video.mov" autoplay loop muted playsinline></video>
     </div>
     <div class="shell reel__inner">
       <p class="t-label t-label--saffron rise">03 — Herkunft</p>
@@ -123,7 +119,7 @@
   </section>
 
   <!-- 06 · Auswahl -->
-  <section class="section shell glow glow--right">
+  <section class="section shell glow glow--right ">
     <div class="section-head">
       <p class="t-label t-label--saffron">05 — Auswahl</p>
       <h2 class="t-headline" data-split>Vier zum Anfangen</h2>

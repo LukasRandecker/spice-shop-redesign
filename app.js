@@ -112,12 +112,6 @@ const CART_ICON = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" a
   <circle cx="6.5" cy="13.5" r="1.2" fill="currentColor"/><circle cx="12" cy="13.5" r="1.2" fill="currentColor"/>
 </svg>`;
 
-const GEAR_ICON = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-  <circle cx="8" cy="8" r="2.4" stroke="currentColor" stroke-width="1.3"/>
-  <path d="M8 1v1.8M8 13.2V15M15 8h-1.8M2.8 8H1M12.9 3.1l-1.3 1.3M4.4 11.6l-1.3 1.3M12.9 12.9l-1.3-1.3M4.4 4.4L3.1 3.1"
-        stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-</svg>`;
-
 const MINUS_ICON = `<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
 const PLUS_ICON = `<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v8M2 6h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
 
@@ -136,7 +130,7 @@ function gramField(name, grams, { idPrefix = 'g' } = {}) {
   </div>`;
 }
 
-function cardHTML(spice, { admin = false } = {}) {
+function cardHTML(spice) {
   const available = Number(spice.available) === 1;
   const name = esc(spice.name);
   const base = Number(spice.price_per_100g);
@@ -162,7 +156,6 @@ function cardHTML(spice, { admin = false } = {}) {
       ${available
         ? `<button class="btn btn--ghost btn--sm" type="button" data-add="${spice.index}">In den Warenkorb ${CART_ICON}</button>`
         : `<button class="btn btn--ghost btn--sm" type="button" disabled>Bald wieder da</button>`}
-      ${admin ? `<button class="card__admin" type="button" data-admin="${spice.index}" aria-label="${name} verwalten">${GEAR_ICON}</button>` : ''}
     </div>
   </article>`;
 }
@@ -206,18 +199,14 @@ document.addEventListener('click', (e) => {
 /* Ein Delegate für alle Produktraster — funktioniert auch für nachgeladene Karten. */
 document.addEventListener('click', async (e) => {
   const add = e.target.closest('[data-add]');
-  if (add) {
-    const spice = (await loadSpices())[Number(add.dataset.add)];
-    if (spice) {
-      const card = add.closest('.card');
-      const grams = clampGrams(card?.querySelector('[data-gram]')?.value ?? GRAM_DEFAULT);
-      Cart.add(spice, grams);
-      toast(`${grams} g ${spice.name} im Warenkorb`);
-    }
-    return;
+  if (!add) return;
+  const spice = (await loadSpices())[Number(add.dataset.add)];
+  if (spice) {
+    const card = add.closest('.card');
+    const grams = clampGrams(card?.querySelector('[data-gram]')?.value ?? GRAM_DEFAULT);
+    Cart.add(spice, grams);
+    toast(`${grams} g ${spice.name} im Warenkorb`);
   }
-  const admin = e.target.closest('[data-admin]');
-  if (admin) openAdmin(Number(admin.dataset.admin));
 });
 
 /* -------------------------------------------------- Toast */
@@ -239,6 +228,23 @@ function toast(message, variant = '') {
 }
 
 /* -------------------------------------------------- Modal */
+
+function modalShell(id, title, body) {
+  return `
+  <div class="modal" id="${id}" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="${id}-title">
+    <div class="modal__panel" tabindex="-1">
+      <button class="modal__close" type="button" data-modal-close aria-label="Schließen">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.4"/>
+        </svg>
+      </button>
+      <div class="modal__head">
+        <h2 class="modal__title" id="${id}-title">${title}</h2>
+      </div>
+      ${body}
+    </div>
+  </div>`;
+}
 
 const Modal = {
   lastFocus: null,

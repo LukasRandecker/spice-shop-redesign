@@ -42,7 +42,7 @@ function buildFeatured(spices) {
     .sort((a, b) => Number(a.price_per_100g) - Number(b.price_per_100g))
     .slice(0, 4);
 
-  host.innerHTML = picked.map((s) => cardHTML(s, { admin: isHost() })).join('');
+  host.innerHTML = picked.map((s) => cardHTML(s)).join('');
   host.querySelectorAll('.card').forEach((card, i) => card.style.setProperty('--d', `${i * 80}ms`));
   observe(host);
 }
