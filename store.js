@@ -21,7 +21,7 @@ async function renderCatalog() {
   } catch (err) {
     console.error('spices.json konnte nicht geladen werden:', err);
     host.innerHTML = `<p class="t-body">Der Katalog konnte nicht geladen werden.
-      Läuft der Server? <code>node server.mjs</code></p>`;
+      Bitte die Seite neu laden.</p>`;
   }
 }
 

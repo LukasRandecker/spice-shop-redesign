@@ -1,0 +1,16 @@
+{
+  "name": "spice-shop-redesign",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo-Onlineshop für Gewürze — statische Seite, Daten aus spices.json",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "build": "node scripts/build-spices.mjs && node scripts/build-dist.mjs",
+    "build:spices": "node scripts/build-spices.mjs",
+    "build:dist": "node scripts/build-dist.mjs",
+    "preview": "npx --yes serve dist -l 3000"
+  }
+}

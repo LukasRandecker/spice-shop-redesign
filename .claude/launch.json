@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "spices",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["server.mjs"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "dist", "-l", "3000"],
       "port": 3000
     }
   ]

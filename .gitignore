@@ -3,3 +3,4 @@ Datenbanken.db
 .claude/worktrees
 .DS_Store
 *.log
+dist/
